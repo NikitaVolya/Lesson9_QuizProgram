@@ -48,6 +48,9 @@
             load_btn.Text = "Завантажити вікторину";
             load_btn.UseVisualStyleBackColor = true;
             load_btn.Click += load_btn_Click;
+            load_btn.MouseDown += start_move_controller;
+            load_btn.MouseMove += move_controller;
+            load_btn.MouseUp += end_move_controller;
             // 
             // answer_options_group
             // 
@@ -67,6 +70,9 @@
             check_answer.Text = "Відповісти";
             check_answer.UseVisualStyleBackColor = true;
             check_answer.Click += check_answer_Click;
+            check_answer.MouseDown += start_move_controller;
+            check_answer.MouseMove += move_controller;
+            check_answer.MouseUp += end_move_controller;
             // 
             // question_label
             // 
@@ -77,6 +83,9 @@
             question_label.Size = new Size(423, 28);
             question_label.TabIndex = 3;
             question_label.Text = "Натисніть кнопку, щоб завантажити питання";
+            question_label.MouseDown += start_move_controller;
+            question_label.MouseMove += move_controller;
+            question_label.MouseUp += end_move_controller;
             // 
             // Form1
             // 
@@ -89,6 +98,7 @@
             Controls.Add(load_btn);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }

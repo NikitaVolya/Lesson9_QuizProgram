@@ -6,12 +6,15 @@
         private int _current_question;
         private int _points;
 
+        private bool _drag;
+
         public Form1()
         {
             InitializeComponent();
             _current_question = 0;
             _points = 0;
             _questions = new List<Program.Question>();
+            _drag = false;
         }
 
         private void ErrorMessageOpeningFile()
@@ -111,8 +114,48 @@
                 RadioButton tmp_answer = new RadioButton();
                 tmp_answer.Text = answer_text;
                 tmp_answer.Location = new Point(6, 19 + i * 20);
+
+                tmp_answer.MouseDown += start_move_controller;
+                tmp_answer.MouseMove += move_controller;
+                tmp_answer.MouseUp += end_move_controller;
+
                 answer_options_group.Controls.Add(tmp_answer);
                 i++;
+            }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void move_controller(object sender, MouseEventArgs e)
+        {
+            if (_drag)
+            {
+                Control control = (Control)sender;
+                control.Location = new Point(
+                    control.Location.X - control.Width / 2 + e.X,
+                    control.Location.Y - control.Height / 2 + e.Y
+                    );
+            }
+        }
+
+        private void start_move_controller(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            { 
+                _drag = true;
+                Cursor.Current = Cursors.Hand;
+            }
+        }
+
+        private void end_move_controller(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                _drag = false; 
+                Cursor.Current = Cursors.Default;
             }
         }
     }
